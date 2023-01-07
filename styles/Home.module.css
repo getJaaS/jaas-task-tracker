@@ -32,7 +32,7 @@
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
-  color: var(--primary-text);
+  color: var(--primary-color);
 }
 
 .code {
@@ -45,12 +45,13 @@
   grid-template-columns: repeat(4, minmax(25%, auto));
   width: var(--max-width);
   max-width: 100%;
+  gap: 1rem;
 }
 
 .card {
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
+  background: rgba(var(--card-rgb), 0.05);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
 }
@@ -72,6 +73,7 @@
   font-size: 0.9rem;
   line-height: 1.5;
   max-width: 30ch;
+  color: #000;
 }
 
 .center {

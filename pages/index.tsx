@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 
@@ -32,10 +33,9 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <a
+          <Link
             href="/"
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
@@ -44,12 +44,11 @@ export default function Home() {
             <p className={inter.className}>
               Get started with the JaaS Task Tracker.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/signup"
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
@@ -58,12 +57,11 @@ export default function Home() {
             <p className={inter.className}>
               Create an account.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/"
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
@@ -72,12 +70,11 @@ export default function Home() {
             <p className={inter.className}>
               Log into your account.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/"
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
@@ -86,7 +83,7 @@ export default function Home() {
             <p className={inter.className}>
               Get more information about the Task Tracker.
             </p>
-          </a>
+          </Link>
         </div>
       </main>
     </>
