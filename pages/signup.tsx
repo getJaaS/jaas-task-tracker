@@ -1,8 +1,11 @@
 import styles from '../styles/signup.module.scss';
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 const Signup = () => {
 
@@ -13,6 +16,7 @@ const Signup = () => {
   const emailRef: any = useRef();
   const passwordRef: any = useRef();
   const confirmPasswordRef: any = useRef();
+  const termsAndPolicyRef: any = useRef();
   
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -24,11 +28,15 @@ const Signup = () => {
     const email: string = emailRef.current.value;
     const password: any = passwordRef.current.value;
     const confirmPassword: any = confirmPasswordRef.current.value;
+    const termsAndPolicy: any = termsAndPolicyRef.current;
 
-    alert(`Your account has been successfully created, ${firstName} ${lastName}.`);
-    
-    console.log(form);
-    form.reset();
+    if (firstName === '' || lastName === '' || phoneNumber === '' || email === '' || password === '' || confirmPassword === '' || !termsAndPolicy.checked) {
+      toast.error('Please enter all required information, and agree with the Terms and Policies.')
+    } else {
+      toast(`Your account has been successfully created, ${firstName} ${lastName}. Proceed to set up your Organisation.`);
+      form.submit();
+      form.reset();
+    }
   }
 
     return (
@@ -84,6 +92,7 @@ const Signup = () => {
                 name="firstName"
                 id="firstName"
                 ref={firstNameRef}
+                required
               />
             </label>
 
@@ -94,6 +103,7 @@ const Signup = () => {
                 name="lastName"
                 id="lastName"
                 ref={lastNameRef}
+                required
               />
             </label>
 
@@ -104,6 +114,7 @@ const Signup = () => {
                 name="phoneNumber"
                 id="phoneNumber"
                 ref={phoneNumberRef}
+                required
               />
             </label>
 
@@ -114,6 +125,7 @@ const Signup = () => {
                 name="email"
                 id="email"
                 ref={emailRef}
+                required
               />
             </label>
 
@@ -124,6 +136,7 @@ const Signup = () => {
                 name="password"
                 id="password"
                 ref={passwordRef}
+                required
               />
             </label>
 
@@ -134,6 +147,7 @@ const Signup = () => {
                 name="confirmPassword"
                 id="confirmPassword"
                 ref={confirmPasswordRef}
+                required
               />
             </label>
 
@@ -142,6 +156,8 @@ const Signup = () => {
                 type="checkbox"
                 name="termsAndPolicy"
                 id="termsAndPolicy"
+                ref={termsAndPolicyRef}
+                required
               />
               <span>
                 I have read, and I agree with the{" "}
@@ -149,13 +165,18 @@ const Signup = () => {
               </span>
             </div>
 
-            <input type="submit" value="Create Account" onClick={handleSubmit} />
+            <input
+              type="submit"
+              value="Create Account"
+              onClick={handleSubmit}
+            />
 
             <p className={styles.haveAnAccount}>
               Already have an account? <Link href="#">Sign in</Link>.
             </p>
           </form>
         </div>
+        <ToastContainer />
       </div>
     );
 }
