@@ -1,60 +1,42 @@
 import styles from '../styles/signup.module.scss';
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useRef } from 'react';
 
 const Signup = () => {
 
-  // useEffect(() => {
-  //   setFirstName("");
-  //   setLastName("");
-  //   setPhoneNumber("");
-  //   setEmail("");
-  //   setPassword("");
-  //   setConfirmPassword("");
-  // }, []);
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
-  const handleChangeFirstName = (e: any) => {
-    setFirstName(e.target.value);
-  };
-
-  const handleChangeLastName = (e: any) => {
-    setLastName(e.target.value);
-  };
-
-  const handleChangePhoneNumber = (e: any) => {
-    setPhoneNumber(e.target.value);
-  };
-
-  const handleChangeEmail = (e: any) => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePassword = (e: any) => {
-    setPassword(e.target.value);
-  };
-
-  const handleChangeConfirmPassword = (e: any) => {
-    setConfirmPassword(e.target.value);
-  };
-
+  const formRef: any = useRef();
+  const firstNameRef: any = useRef();
+  const lastNameRef: any = useRef();
+  const phoneNumberRef: any = useRef();
+  const emailRef: any = useRef();
+  const passwordRef: any = useRef();
+  const confirmPasswordRef: any = useRef();
+  const termsAndPolicyRef: any = useRef();
+  
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    alert(`Your account has been successfully created, ${firstName} ${lastName}.`);
-    setFirstName('');
-    setLastName('');
-    setPhoneNumber('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+
+    const form = formRef.current;
+    const firstName: string = firstNameRef.current.value;
+    const lastName: string = lastNameRef.current.value;
+    const phoneNumber: string = phoneNumberRef.current.value;
+    const email: string = emailRef.current.value;
+    const password: any = passwordRef.current.value;
+    const confirmPassword: any = confirmPasswordRef.current.value;
+    const termsAndPolicy: any = termsAndPolicyRef.current;
+
+    if (firstName === '' || lastName === '' || phoneNumber === '' || email === '' || password === '' || confirmPassword === '' || !termsAndPolicy.checked) {
+      toast.error('Please enter all required information, and agree with the Terms and Policies.')
+    } else {
+      toast(`Your account has been successfully created, ${firstName} ${lastName}. Proceed to set up your Organisation.`);
+      form.submit();
+      form.reset();
+    }
   }
 
     return (
@@ -102,15 +84,15 @@ const Signup = () => {
             Create an account to start using the Task Tracker.
           </p>
 
-          <form>
+          <form ref={formRef}>
             <label htmlFor="firstName">
               First Name:
               <input
                 type="text"
-                value={firstName}
-                onChange={handleChangeFirstName}
                 name="firstName"
                 id="firstName"
+                ref={firstNameRef}
+                required
               />
             </label>
 
@@ -118,10 +100,10 @@ const Signup = () => {
               Last Name:
               <input
                 type="text"
-                value={lastName}
-                onChange={handleChangeLastName}
                 name="lastName"
                 id="lastName"
+                ref={lastNameRef}
+                required
               />
             </label>
 
@@ -129,10 +111,10 @@ const Signup = () => {
               Phone Number:
               <input
                 type="text"
-                value={phoneNumber}
-                onChange={handleChangePhoneNumber}
                 name="phoneNumber"
                 id="phoneNumber"
+                ref={phoneNumberRef}
+                required
               />
             </label>
 
@@ -140,10 +122,10 @@ const Signup = () => {
               Email:
               <input
                 type="text"
-                value={email}
-                onChange={handleChangeEmail}
                 name="email"
                 id="email"
+                ref={emailRef}
+                required
               />
             </label>
 
@@ -151,10 +133,10 @@ const Signup = () => {
               Password:
               <input
                 type="password"
-                value={password}
-                onChange={handleChangePassword}
                 name="password"
                 id="password"
+                ref={passwordRef}
+                required
               />
             </label>
 
@@ -162,10 +144,10 @@ const Signup = () => {
               Confirm Password:
               <input
                 type="password"
-                value={confirmPassword}
-                onChange={handleChangeConfirmPassword}
                 name="confirmPassword"
                 id="confirmPassword"
+                ref={confirmPasswordRef}
+                required
               />
             </label>
 
@@ -174,6 +156,8 @@ const Signup = () => {
                 type="checkbox"
                 name="termsAndPolicy"
                 id="termsAndPolicy"
+                ref={termsAndPolicyRef}
+                required
               />
               <span>
                 I have read, and I agree with the{" "}
@@ -181,13 +165,18 @@ const Signup = () => {
               </span>
             </div>
 
-            <input type="submit" value="Create Account" onClick={handleSubmit} />
+            <input
+              type="submit"
+              value="Create Account"
+              onClick={handleSubmit}
+            />
 
             <p className={styles.haveAnAccount}>
               Already have an account? <Link href="#">Sign in</Link>.
             </p>
           </form>
         </div>
+        <ToastContainer />
       </div>
     );
 }
