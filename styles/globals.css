@@ -41,10 +41,12 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 
-  --primary-color: #7F00FF;
-  --dark-color: #323236;
   --primary-font-family: 'Archivo', sans-serif;
   --baloo-font-family: 'Baloo 2', cursive;
+
+  --primary-color: #7F00FF;
+  --dark-color: #323236;
+  --light-gray-color: #F1F1F1;
 }
 
 @media (prefers-color-scheme: dark) {
