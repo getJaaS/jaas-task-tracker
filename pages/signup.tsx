@@ -1,10 +1,14 @@
 import styles from '../styles/signup.module.scss';
 
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
 const Signup = () => {
@@ -17,8 +21,28 @@ const Signup = () => {
   const passwordRef: any = useRef();
   const confirmPasswordRef: any = useRef();
   const termsAndPolicyRef: any = useRef();
+
+  const router = useRouter();
+
+  // const signUp = () => {
+  //   const form = formRef.current;
+  //   const firstName: string = firstNameRef.current.value;
+  //   const lastName: string = lastNameRef.current.value;
+  //   const phoneNumber: string = phoneNumberRef.current.value;
+  //   const email: string = emailRef.current.value;
+  //   const password: any = passwordRef.current.value;
+  //   const confirmPassword: any = confirmPasswordRef.current.value;
+  //   const termsAndPolicy: any = termsAndPolicyRef.current;
+
+  //   createUserWithEmailAndPassword(auth, email, password).then((response) => {
+  //     const user = response.user;
+  //     sessionStorage.setItem("Token", user.refreshToken);
+  //     console.log(user);
+  //     router.push("/");
+  //   });
+  // };
   
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const form = formRef.current;
@@ -29,14 +53,49 @@ const Signup = () => {
     const password: any = passwordRef.current.value;
     const confirmPassword: any = confirmPasswordRef.current.value;
     const termsAndPolicy: any = termsAndPolicyRef.current;
-
+    
     if (firstName === '' || lastName === '' || phoneNumber === '' || email === '' || password === '' || confirmPassword === '' || !termsAndPolicy.checked) {
       toast.error('Please enter all required information, and agree with the Terms and Policies.')
     } else {
-      toast(`Your account has been successfully created, ${firstName} ${lastName}. Proceed to set up your Organisation.`);
-      form.submit();
-      form.reset();
-    }
+      if (password !== confirmPassword) {
+        toast.error("Passwords don't match");
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password)
+        .then(
+          (response) => {
+            const user = response.user;
+            sessionStorage.setItem("Token", user.refreshToken);
+            toast.success(
+              `Your account has been successfully created, ${firstName} ${lastName}. Proceed to set up your Organisation.`
+            );
+            updateProfile(auth.currentUser!, {
+              displayName: `${firstName} ${lastName}`,
+            });
+            form.reset();
+            router.push("/");
+          }
+        )
+        .catch(error => {
+          switch (error.code) {
+              case 'auth/email-already-in-use':
+                toast(`An account with the email address ${email} already exists. Sign in instead.`);
+                break;
+              case 'auth/invalid-email':
+                toast(`The email address ${email} is invalid.`);
+                break;
+              case 'auth/operation-not-allowed':
+                toast(`Error during sign up.`);
+                break;
+              case 'auth/weak-password':
+                toast('Password is not strong enough. Your password should have a minimum of six characters.');
+                break;
+              default:
+                toast(error.message);
+                break;
+            }
+        });
+      }
+    };
   }
 
     return (
@@ -84,7 +143,7 @@ const Signup = () => {
             Create an account to start using the Task Tracker.
           </p>
 
-          <form ref={formRef}>
+          <form ref={formRef} onSubmit={handleSubmit}>
             <label htmlFor="firstName">
               First Name:
               <input
@@ -121,7 +180,7 @@ const Signup = () => {
             <label htmlFor="email">
               Email:
               <input
-                type="text"
+                type="email"
                 name="email"
                 id="email"
                 ref={emailRef}
@@ -161,18 +220,18 @@ const Signup = () => {
               />
               <span>
                 I have read, and I agree with the{" "}
-                <Link href="#">Terms and Policy</Link>.
+                <Link href="/">Terms and Policy</Link>.
               </span>
             </div>
 
             <input
               type="submit"
               value="Create Account"
-              onClick={handleSubmit}
+              // onClick={signUp}
             />
 
             <p className={styles.haveAnAccount}>
-              Already have an account? <Link href="#">Sign in</Link>.
+              Already have an account? <Link href="/">Sign in</Link>.
             </p>
           </form>
         </div>
