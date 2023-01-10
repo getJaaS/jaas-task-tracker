@@ -136,8 +136,7 @@ const CreateOrganisation = () => {
 
           <label htmlFor="overview">
             Overview:
-            <input
-              type="text"
+            <textarea
               name="overview"
               id="overview"
               ref={overviewRef}
