@@ -86,6 +86,7 @@ const CreateOrganisation = () => {
               id="organisationName"
               ref={organisationNameRef}
               required
+              placeholder="Enter the name of your Organisation"
             />
           </label>
 
@@ -97,6 +98,7 @@ const CreateOrganisation = () => {
               id="organisationEmail"
               ref={organisationEmailRef}
               required
+              placeholder="Enter the email of your organisation"
             />
           </label>
 
@@ -109,6 +111,7 @@ const CreateOrganisation = () => {
               id="organisationPhoneNumber"
               ref={organisationPhoneNumberRef}
               required
+              placeholder="Enter the phone number of your organisation"
             />
           </label>
 
@@ -120,6 +123,7 @@ const CreateOrganisation = () => {
               id="departments"
               ref={departmentsRef}
               required
+              placeholder="Enter the departments of your organisation"
             />
           </label>
           
@@ -131,6 +135,7 @@ const CreateOrganisation = () => {
               id="companySize"
               ref={companySizeRef}
               required
+              placeholder="Enter your company size"
             />
           </label>
 
@@ -141,6 +146,7 @@ const CreateOrganisation = () => {
               id="overview"
               ref={overviewRef}
               required
+              placeholder="Enter a brief overview of your organisation"
             />
           </label>
 
