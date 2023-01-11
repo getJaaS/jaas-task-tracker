@@ -128,74 +128,68 @@ const Signup = () => {
 
         <form ref={formRef} onSubmit={handleSubmit}>
           <label htmlFor="firstName">
-            First Name:
+            First Name
             <input
               type="text"
               name="firstName"
               id="firstName"
               ref={firstNameRef}
               required
-              placeholder="Enter your first name"
             />
           </label>
 
           <label htmlFor="lastName">
-            Last Name:
+            Last Name
             <input
               type="text"
               name="lastName"
               id="lastName"
               ref={lastNameRef}
               required
-              placeholder="Enter your last name"
             />
           </label>
 
           <label htmlFor="phoneNumber">
-            Phone Number:
+            Phone Number
             <input
               type="text"
               name="phoneNumber"
               id="phoneNumber"
               ref={phoneNumberRef}
               required
-              placeholder="Enter your phone number"
             />
           </label>
 
           <label htmlFor="email">
-            Email:
+            Email
             <input
               type="email"
               name="email"
               id="email"
               ref={emailRef}
               required
-              placeholder="Enter your email"
             />
           </label>
 
           <label htmlFor="password">
-            Password:
+            Password
             <input
               type="password"
               name="password"
               id="password"
               ref={passwordRef}
               required
-              placeholder="Enter your desired password"
             />
           </label>
 
           <label htmlFor="confirmPassword">
-            Confirm Password:
+            Confirm Password
             <input
               type="password"
               name="confirmPassword"
               id="confirmPassword"
               ref={confirmPasswordRef}
               required
-              placeholder="Enter the password again"
             />
           </label>
 
