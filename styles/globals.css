@@ -47,6 +47,7 @@
   --primary-color: #7F00FF;
   --dark-color: #323236;
   --light-gray-color: #F1F1F1;
+  --light-gray-2: #d2d2d2;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -102,6 +103,10 @@ body {
 a {
   color: var(--primary-color);
   text-decoration: none;
+}
+
+::placeholder {
+  color: var(--light-gray-2)
 }
 
 @media (prefers-color-scheme: dark) {

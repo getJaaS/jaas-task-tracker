@@ -135,6 +135,7 @@ const Signup = () => {
               id="firstName"
               ref={firstNameRef}
               required
+              placeholder="Enter your first name"
             />
           </label>
 
@@ -146,6 +147,7 @@ const Signup = () => {
               id="lastName"
               ref={lastNameRef}
               required
+              placeholder="Enter your last name"
             />
           </label>
 
@@ -157,6 +159,7 @@ const Signup = () => {
               id="phoneNumber"
               ref={phoneNumberRef}
               required
+              placeholder="Enter your phone number"
             />
           </label>
 
@@ -168,6 +171,7 @@ const Signup = () => {
               id="email"
               ref={emailRef}
               required
+              placeholder="Enter your email"
             />
           </label>
 
@@ -179,6 +183,7 @@ const Signup = () => {
               id="password"
               ref={passwordRef}
               required
+              placeholder="Enter your desired password"
             />
           </label>
 
@@ -190,6 +195,7 @@ const Signup = () => {
               id="confirmPassword"
               ref={confirmPasswordRef}
               required
+              placeholder="Enter the password again"
             />
           </label>
 
