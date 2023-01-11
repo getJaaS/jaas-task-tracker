@@ -44,9 +44,9 @@ const Signup = () => {
       } else {
         await createUserWithEmailAndPassword(auth, email, password)
         .then(
-          (response) => {
+          (response: any) => {
             const user = response.user;
-            sessionStorage.setItem("Token", user.refreshToken);
+            sessionStorage.setItem("Token", user.accessToken);
             toast.success(
               `Your account has been successfully created, ${firstName} ${lastName}. Proceed to set up your Organisation.`
             );
