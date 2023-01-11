@@ -79,74 +79,68 @@ const CreateOrganisation = () => {
 
         <form ref={formRef} onSubmit={handleSubmit}>
           <label htmlFor="organisationName">
-            Organisation Name:
+            Organisation Name
             <input
               type="text"
               name="organisationName"
               id="organisationName"
               ref={organisationNameRef}
               required
-              placeholder="Enter the name of your Organisation"
             />
           </label>
 
           <label htmlFor="organisationEmail">
-            Organisation Email:
+            Organisation Email
             <input
               type="text"
               name="organisationEmail"
               id="organisationEmail"
               ref={organisationEmailRef}
               required
-              placeholder="Enter the email of your organisation"
             />
           </label>
 
 
           <label htmlFor="organisationPhoneNumber">
-            Organisation Phone Number:
+            Organisation Phone Number
             <input
               type="text"
               name="organisationPhoneNumber"
               id="organisationPhoneNumber"
               ref={organisationPhoneNumberRef}
               required
-              placeholder="Enter the phone number of your organisation"
             />
           </label>
 
           <label htmlFor="departments">
-            Departments:
+            Departments
             <input
               type="text"
               name="departments"
               id="departments"
               ref={departmentsRef}
               required
-              placeholder="Enter the departments of your organisation"
             />
           </label>
           
           <label htmlFor="companySize">
-            Company Size:
+            Company Size
             <input
               type="number"
               name="companySize"
               id="companySize"
               ref={companySizeRef}
               required
-              placeholder="Enter your company size"
             />
           </label>
 
           <label htmlFor="overview">
-            Overview:
+            Overview
             <textarea
               name="overview"
               id="overview"
               ref={overviewRef}
               required
-              placeholder="Enter a brief overview of your organisation"
             />
           </label>
 
