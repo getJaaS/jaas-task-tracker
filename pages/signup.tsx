@@ -213,7 +213,7 @@ const Signup = () => {
           />
 
           <p className={styles.haveAnAccount}>
-            Already have an account? <Link href="/">Sign in</Link>.
+            Already have an account? <Link href="/signin">Sign in</Link>.
           </p>
         </form>
       </div>

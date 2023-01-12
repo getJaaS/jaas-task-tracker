@@ -60,7 +60,7 @@ export default function Home() {
           </Link>
 
           <Link
-            href="/"
+            href="/signin"
             className={styles.card}
             rel="noopener noreferrer"
           >
