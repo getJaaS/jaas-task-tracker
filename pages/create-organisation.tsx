@@ -8,6 +8,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
+import { auth, database } from '../firebaseConfig';
+import { collection, addDoc } from "firebase/firestore";
+
 const CreateOrganisation = () => {
   const formRef: any = useRef();
   const organisationNameRef: any = useRef();
@@ -29,6 +32,30 @@ const CreateOrganisation = () => {
     const departments: string = departmentsRef.current.value;
     const companySize: number = companySizeRef.current.value;
     const overview: string = overviewRef.current.value;
+
+    try {
+      const organisationRef = await addDoc(collection(database, "organisations"), {
+        name: organisationName,
+        email: organisationEmail,
+        phoneNumber: organisationPhoneNumber,
+        departments: departments,
+        companySize: companySize,
+        overview: overview,
+        staff: {
+          superAdmin: auth.currentUser?.displayName
+        }
+      })
+      
+      const staffRef = await addDoc(collection(database, "organisations", organisationRef.id, "staff"), {
+        name: auth.currentUser?.displayName,
+        email: auth.currentUser?.email,
+      });
+      toast.success(`Organisation ${organisationName} created successfully.`);
+      router.push("/");
+      form.reset()
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
