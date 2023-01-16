@@ -52,7 +52,7 @@ const CreateOrganisation = () => {
         department: ""
       });
       toast.success(`Organisation ${organisationName} created successfully.`);
-      router.push("/");
+      router.push("/dashboard");
       form.reset()
     } catch (e) {
       console.error("Error adding document: ", e);
