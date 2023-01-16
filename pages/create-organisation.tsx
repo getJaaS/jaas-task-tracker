@@ -41,14 +41,15 @@ const CreateOrganisation = () => {
         departments: departments,
         companySize: companySize,
         overview: overview,
-        staff: {
-          superAdmin: auth.currentUser?.displayName
-        }
-      })
+      });
       
-      const staffRef = await addDoc(collection(database, "organisations", organisationRef.id, "staff"), {
+      const staffRef = await addDoc(collection(database, "organisations", organisationName, "staff"), {
         name: auth.currentUser?.displayName,
         email: auth.currentUser?.email,
+        phoneNumber: "",
+        isSuperAdmin: true,
+        isAdmin: true,
+        department: ""
       });
       toast.success(`Organisation ${organisationName} created successfully.`);
       router.push("/");

@@ -1,7 +1,8 @@
 import styles from '../styles/signup.module.scss';
 
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
+import { auth, database } from '../firebaseConfig';
+import { collection, addDoc } from "firebase/firestore";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,6 +54,18 @@ const Signup = () => {
             updateProfile(auth.currentUser!, {
               displayName: `${firstName} ${lastName}`,
             });
+            try {
+              const userRef = addDoc(collection(database, "users"), {
+                name: auth.currentUser?.displayName,
+                email: auth.currentUser?.email,
+                phoneNumber: "",
+                isSuperAdmin: true,
+                isAdmin: true,
+                department: "",
+              });
+            } catch (e) {
+              console.error("Error adding Staff to Organisation: ", e);
+            }
             form.reset();
             router.push("/create-organisation");
           }
@@ -79,6 +92,11 @@ const Signup = () => {
       }
     };
   }
+
+  // exports.createUserDoc = functions.auth.user().onCreate((user) => {
+  //   const userId = user.uid;
+  //   return admin.firestore().collection('users').doc(userId).set( {...} );
+  // });
 
   return (
     <div className={styles.container}>
