@@ -15,9 +15,17 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const Signin = () => {
+
+    useEffect(() => {
+        let token = sessionStorage.getItem("Token");
+        if (token) {
+            router.push("/dashboard");
+        }
+    })
+    
   const formRef: any = useRef();
   const emailRef: any = useRef();
   const passwordRef: any = useRef();
@@ -39,17 +47,15 @@ const Signin = () => {
         "You must enter your email and password to sign in."
       );
     } else {
-        // email = "";
-        // password = "";
         signInWithEmailAndPassword(auth, email, password)
           .then((response: any) => {
             const user = response.user;
-            // sessionStorage.setItem("Token", user.accessToken);
-            form.reset();
-            router.push("/");
+            sessionStorage.setItem("Token", user.accessToken);
             toast.success(
               `You have successfully signed in.`
             );
+            form.reset();
+            router.push("/dashboard");
           })
           .catch((error) => {
             switch (error.code) {
