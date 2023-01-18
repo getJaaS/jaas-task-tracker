@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  sendPasswordResetEmail
 } from "firebase/auth";
 
 import { auth } from "../firebaseConfig";
@@ -15,27 +16,58 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Signin = () => {
 
-    useEffect(() => {
-        let token = sessionStorage.getItem("Token");
-        if (token) {
-            router.push("/dashboard");
-        }
-    })
+  useEffect(() => {
+      let token = sessionStorage.getItem("Token");
+      if (token) {
+          router.push("/dashboard");
+      }
+  })
+
+  const [openModal, setOpenModal] = useState(false);
     
   const formRef: any = useRef();
   const emailRef: any = useRef();
   const passwordRef: any = useRef();
 
+  const passwordResetFormRef: any = useRef();
+  const passwordResetEmailRef: any = useRef();
+
   const router = useRouter();
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  }
+
+  const handlePasswordReset = (e: any) => {
+    e.preventDefault();
+
+    const passwordResetForm: any = formRef.current;
+    const passwordResetEmail: string = passwordResetEmailRef.current.value;
+
+    sendPasswordResetEmail(auth, passwordResetEmail)
+      .then(() => {
+        toast.success("Password reset email sent to " + passwordResetEmail);
+      })
+      .then(() => {
+        setOpenModal(false);
+      })
+      .then(() => {
+        passwordResetForm.reset();
+    })
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const form = formRef.current;
+    const form: any = formRef.current;
     const email: string = emailRef.current.value;
     const password: any = passwordRef.current.value;
 
@@ -149,6 +181,9 @@ const Signin = () => {
               required
             />
           </label>
+          <p className={styles.forgotPassword} onClick={handleOpenModal}>
+            Forgot Password?
+          </p>
 
           <input type="submit" value="Sign In" />
 
@@ -157,6 +192,29 @@ const Signin = () => {
           </p>
         </form>
       </div>
+
+      {openModal && (
+        <div className={styles.modalContainer}>
+          <div className={styles.modalContent}>
+            <p className={styles.close} onClick={handleCloseModal}>
+              close
+            </p>
+            <form ref={passwordResetFormRef} onSubmit={handlePasswordReset}>
+              <label htmlFor="email">
+                Enter your email address
+                <input
+                  type="email"
+                  name="resetPasswordEmail"
+                  id="resetPasswordEmail"
+                  ref={passwordResetEmailRef}
+                  required
+                />
+              </label>
+              <input type="submit" value="Reset Password" />
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
