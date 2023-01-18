@@ -58,6 +58,7 @@ const Signup = () => {
               const userRef = addDoc(collection(database, "users"), {
                 name: auth.currentUser?.displayName,
                 email: auth.currentUser?.email,
+                userId: auth.currentUser?.uid,
                 phoneNumber: "",
                 isSuperAdmin: true,
                 isAdmin: true,
