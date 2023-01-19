@@ -61,7 +61,30 @@ const Signin = () => {
       })
       .then(() => {
         passwordResetForm.reset();
-    })
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/invalid-email":
+            toast.error(`${passwordResetEmail} is not a valid email address.`);
+            break;
+          case "auth/user-not-found":
+            toast(`An account with the email address ${passwordResetEmail} does not exist.`);
+            break;
+          case "auth/user-disabled":
+            toast(
+              `The account with the email address ${passwordResetEmail} is currently disabled.`
+            );
+            break;
+          case "auth/too-many-requests":
+            toast(
+              `Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.`
+            );
+            break;
+          default:
+            toast(error.message);
+            break;
+        }
+      });
   }
 
   const handleSubmit = async (e: any) => {
