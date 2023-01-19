@@ -17,10 +17,33 @@ const CreateOrganisation = () => {
   const organisationEmailRef: any = useRef();
   const organisationPhoneNumberRef: any = useRef();
   const departmentsRef: any = useRef();
+  const departmentsListRef: any = useRef();
   const companySizeRef: any = useRef();
   const overviewRef: any = useRef();
 
+  let departmentsHidden: boolean = true;
+
   const router = useRouter();
+
+  const showDepartmentsList = () => {
+    const departmentsList: any = document.getElementById("departmentsList");
+
+    departmentsList.style.display = "block";
+    departmentsHidden = !departmentsHidden;
+    departmentsHidden ? departmentsList.style.display = "none" : "block";
+  }
+
+  const handleDepartmentsInput = (event: any) => {
+    event.preventDefault();
+    const departments: any = document.getElementById("departments");
+
+    if (departments.value === "") {
+      departments.value = event.target.value;
+    } else if (departments.value.includes(event.target.value)) {
+      } else {
+      departments.value = departments.value + ", " + event.target.value;
+    }
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -130,7 +153,6 @@ const CreateOrganisation = () => {
             />
           </label>
 
-
           <label htmlFor="organisationPhoneNumber">
             Organisation Phone Number
             <input
@@ -144,15 +166,37 @@ const CreateOrganisation = () => {
 
           <label htmlFor="departments">
             Departments
-            <input
-              type="text"
+            <textarea
               name="departments"
               id="departments"
               ref={departmentsRef}
               required
+              placeholder="Select Multiple"
+              onClick={showDepartmentsList}
             />
+            <select
+              name="departments"
+              id="departmentsList"
+              className="departmentsList"
+              ref={departmentsListRef}
+              multiple
+              onChange={handleDepartmentsInput}
+            >
+              {/* <option value="" disabled>Select multiple</option> */}
+              <option value="Admin">Admin</option>
+              <option value="Customer Service">Customer Service</option>
+              <option value="Finance and Accounting">Finance and Accounting</option>
+              <option value="Human Resources (HR)">Human Resources (HR)</option>
+              <option value="Information Technology (IT)">Information Technology (IT)</option>
+              <option value="Legal">Legal</option>
+              <option value="Management">Management</option>
+              <option value="Sales and Marketing">Sales and Marketing</option>
+              <option value="Operations">Operations</option>
+              <option value="Research and Development">Research and Development</option>
+              <option value="Supply Chain and Logistics">Supply Chain and Logistics</option>
+            </select>
           </label>
-          
+
           <label htmlFor="companySize">
             Company Size
             <input
