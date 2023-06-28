@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import Sidebar from "../components/sidebar";
 
 const Dashboard = () => {
 
@@ -23,28 +24,14 @@ const Dashboard = () => {
         })
     }
 
-    return (
+  return (
+    <Sidebar>
       <div className={styles.container}>
-        <Link href="/" className={styles.link}>
-          <Image
-            src="/jaas-logo.png"
-            alt=""
-            // fill
-            width={100}
-            height={100}
-            priority
-            placeholder="blur"
-            blurDataURL={"/jaas-logo.png"}
-            style={{
-              width: "70%",
-              height: "auto",
-            }}
-          />
-        </Link>
         <h1>Dashboard!</h1>
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
-    );
+    </Sidebar>
+  );
 }
  
 export default Dashboard;

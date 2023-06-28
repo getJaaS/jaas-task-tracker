@@ -49,6 +49,22 @@
   --dark-color: #323236;
   --light-gray-color: #F1F1F1;
   --light-gray-2: #d2d2d2;
+  --transparent-black: #00000050;
+  --transparent-black-2: #00000080;
+  --transparent-black-3: #00000015;
+  --background-gray: #32323610;
+}
+
+.font-14 {
+  font-size: 24px;
+}
+
+.font-500 {
+  font-weight: 500;
+}
+
+.text-transparent-black {
+  color: var(--transparent-black-2);
 }
 
 @media (prefers-color-scheme: dark) {
