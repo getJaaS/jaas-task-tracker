@@ -64,6 +64,7 @@ const CreateOrganisation = () => {
         departments: departments,
         companySize: companySize,
         overview: overview,
+        ownerId: auth.currentUser?.uid
       });
       
       const staffRef = await addDoc(collection(database, "organisations", organisationRef.id, "staff"), {
