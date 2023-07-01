@@ -55,6 +55,10 @@
   --background-gray: #32323610;
 }
 
+.container {
+  padding: 2rem;
+}
+
 .font-14 {
   font-size: 24px;
 }
@@ -65,6 +69,15 @@
 
 .text-transparent-black {
   color: var(--transparent-black-2);
+}
+
+.card-title {
+  font-size: 20px;
+}
+
+.card-count {
+  font-size: 48px;
+  font-weight: 700;
 }
 
 @media (prefers-color-scheme: dark) {

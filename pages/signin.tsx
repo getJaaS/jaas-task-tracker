@@ -106,6 +106,7 @@ const Signin = () => {
           .then((response: any) => {
             const user = response.user;
             sessionStorage.setItem("Token", user.accessToken);
+            sessionStorage.setItem("UserId", auth.currentUser!.uid);
             toast.success(
               `You have successfully signed in.`
             );
